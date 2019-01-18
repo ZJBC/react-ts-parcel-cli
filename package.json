@@ -1,0 +1,19 @@
+{
+  "name": "react-ts-parcel-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "node index.js init nana"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "download-git-repo": "^1.0.2",
+    "fs": "0.0.1-security",
+    "inquirer": "^6.0.0",
+    "commander": "^2.15.1",
+    "glob": "^7.1.2"
+  },
+  "description": ""
+}
