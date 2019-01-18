@@ -62,22 +62,40 @@ function initProject(projectName){
 }
 
 function downloadTemplate(to, needToRemoveExistProject) {
-  let loadingMag = '初始化项目中'
-  if (needToRemoveExistProject) rm(to)
-  const loadingInterval = setInterval(() => {
-    if (loadingMag.length > 11) {
-      loadingMag = '初始化项目中.'
+  
+  inquirer.prompt([{
+    type: 'list',
+    message: `"React应用模版"|"React组件模版"`,
+    name: 'choices',
+    choices: ['应用', '组件']
+  }]).then(({ choices }) => {
+    
+    let downloadURL = ''
+    
+    if (choices === '应用') {
+      downloadURL = 'ZJBC/react-ts-parcel-template-app#master'
     } else {
-      loadingMag += '.'
+      downloadURL = 'ZJBC/react-ts-parcel-template-component#master'
     }
-    process.stdout.write(loadingMag + '\33[K\r')
-  }, 200)
-  download('LylaYuKakola/yu-vue-cli#master', to, err => {
-    clearInterval(loadingInterval)
-    if (err) {
-      process.stdout.write('\33[K\r' + `初始化项目错误：${err}`)
-    } else {
-      process.stdout.write('\33[K\r' + `初始化项目完毕!`)
-    }
+  
+    let loadingMag = '初始化项目中'
+    if (needToRemoveExistProject) rm(to)
+    const loadingInterval = setInterval(() => {
+      if (loadingMag.length > 11) {
+        loadingMag = '初始化项目中.'
+      } else {
+        loadingMag += '.'
+      }
+      process.stdout.write(loadingMag + '\33[K\r')
+    }, 200)
+    download(downloadURL, to, err => {
+      clearInterval(loadingInterval)
+      if (err) {
+        process.stdout.write('\33[K\r' + `初始化项目错误：${err}`)
+      } else {
+        process.stdout.write('\33[K\r' + `初始化项目完毕!`)
+      }
+    })
+    
   })
 }
